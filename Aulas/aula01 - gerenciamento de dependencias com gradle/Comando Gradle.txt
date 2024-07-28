@@ -1,0 +1,2 @@
+init: torna o projeto Java atual nos moldes arquitetônicos do Gradle
+dependencies: verifica e atualiza/baixa as dependencias
