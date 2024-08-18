@@ -23,7 +23,7 @@ public class Lista02Application {
 		return ilhasDeCalor;
 	}
 
-	public Boolean VerificarSeJaExisteIdBairro(IlhaDeCalor ilha) {
+	public Boolean VerificarRepeticaoId(IlhaDeCalor ilha) {
 		for (IlhaDeCalor ilhaNaLista : ilhasDeCalor) {
 			if (ilhaNaLista.getId() == ilha.getId()) {
 				System.out.println("Erro: Id repetido");
@@ -35,7 +35,7 @@ public class Lista02Application {
 
 	@PostMapping("/ilhas-de-calor")
 	public String adicionarIlhaDeCalor(@RequestBody IlhaDeCalor ilha) {
-		if (!VerificarSeJaExisteIdBairro(ilha)) {
+		if (!VerificarRepeticaoId(ilha)) {
 			return null;
 		}
 		ilhasDeCalor.add(ilha);
