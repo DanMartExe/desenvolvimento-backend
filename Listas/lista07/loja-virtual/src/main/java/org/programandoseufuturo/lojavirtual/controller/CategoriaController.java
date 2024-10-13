@@ -1,8 +1,9 @@
 package org.programandoseufuturo.lojavirtual.controller;
 
 import java.util.List;
-import org.programandoseufuturo.lojavirtual.model.Produto;
-import org.programandoseufuturo.lojavirtual.service.ProdutoService;
+
+import org.programandoseufuturo.lojavirtual.model.Categoria;
+import org.programandoseufuturo.lojavirtual.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,39 +17,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/produtos")
+@RequestMapping("/categorias")
 @CrossOrigin("*")
-public class ProdutoController {
+public class CategoriaController {
 
-    private ProdutoService service;
+    private CategoriaService service;
 
     @Autowired
-    public ProdutoController(ProdutoService service) {
+    public CategoriaController(CategoriaService service) {
         this.service = service;
     }
 
     @GetMapping
-    public ResponseEntity<List<Produto>> getAll() {
-        List<Produto> produtos = service.obterTodosProdutos();
-        return ResponseEntity.status(HttpStatus.OK.value()).body(produtos);
+    public ResponseEntity<List<Categoria>> getAll() {
+        return ResponseEntity.status(HttpStatus.OK.value())
+            .body(service.obterCategoria());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Produto> getById(@PathVariable("id") int id) {
+    public ResponseEntity<Categoria> getById(@PathVariable int id) {
         return ResponseEntity.status(HttpStatus.OK.value())
-            .body(service.obterProdutoPeloId(id));
+            .body(service.obterCategoriaPeloId(id));
     }
 
     @PostMapping
-    public ResponseEntity<Produto> save(@RequestBody Produto produto) {
-        Produto produtoCadastrado = service.cadastrarProduto(produto);
+    public ResponseEntity<Categoria> save(@RequestBody Categoria categoria) {
         return ResponseEntity.status(HttpStatus.CREATED.value())
-            .body(produtoCadastrado);
+            .body(service.cadastrarNovaCategoria(categoria));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Produto> delete(@PathVariable("id") int id) {
+    public ResponseEntity<Categoria> delete(@PathVariable int id) {
         return ResponseEntity.status(HttpStatus.OK.value())
-            .body(service.deletarProduto(id));
+            .body(service.deletarCategoria(id));
     }
-}
+}   
